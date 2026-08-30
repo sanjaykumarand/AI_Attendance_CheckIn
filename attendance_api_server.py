@@ -1,4 +1,6 @@
 """
+
+
 Smart Attendance API Server
 Handles: registration (with phone number), email-OTP verified check-in,
 and Gemini-powered reporting. Both JavaFX apps talk to this server.
@@ -48,7 +50,6 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], all
 otp_store = {}
 
 
-# ---------- DB setup ----------
 
 def init_db():
     conn = sqlite3.connect(DB_PATH)
@@ -79,7 +80,7 @@ def init_db():
 init_db()
 
 
-# ---------- Models ----------
+
 
 class RegisterRequest(BaseModel):
     roll_number: str
@@ -97,7 +98,7 @@ class OtpVerifyRequest(BaseModel):
     otp: str
 
 
-# ---------- Email sending ----------
+
 
 def send_otp_email(to_email: str, otp: str, student_name: str):
     if not EMAIL_ADDRESS or not EMAIL_APP_PASSWORD:
@@ -116,7 +117,7 @@ def send_otp_email(to_email: str, otp: str, student_name: str):
         server.sendmail(EMAIL_ADDRESS, to_email, msg.as_string())
 
 
-# ---------- Registration endpoints ----------
+
 
 @app.post("/register")
 def register_student(req: RegisterRequest):
@@ -162,7 +163,7 @@ def remove_student(roll_number: str):
     return {"status": "removed", "roll_number": roll_number}
 
 
-# ---------- OTP check-in flow ----------
+
 
 def get_student(roll_number: str):
     conn = sqlite3.connect(DB_PATH)
@@ -339,3 +340,8 @@ def ask_question(req: AskRequest):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8001)
+
+    """
+    Copyright (c) 2026 Sanjay Kumaran D All Rights Reserved.
+    Only for Personal Educational Purpose only
+    """
